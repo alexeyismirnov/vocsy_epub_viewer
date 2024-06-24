@@ -20,8 +20,18 @@ A new flutter plugin project.
 
   s.dependency 'Flutter'
   
-  s.dependency 'EpubViewerKit', '~> 0.1.3'
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '15.0'
 
+  s.dependency 'RealmSwift', '3.17.3'
+  s.dependency 'MenuItemKit', '3.1.3'
+  s.dependency 'AEXML', '4.3.3'
+  s.dependency 'FontBlaster', '4.1.0'
+  s.dependency 'ZFDragableModalTransition', '0.6'
+  s.dependency 'SSZipArchive', '2.1.1'
+
+  s.preserve_paths = 'FolioReaderKit.framework'
+  s.xcconfig = { 'OTHER_LDFLAGS' => '-framework FolioReaderKit' }
+  s.vendored_frameworks = 'FolioReaderKit.framework'
+  
   
 end

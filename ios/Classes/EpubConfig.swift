@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import EpubViewerKit
+import FolioReaderKit
 
 class EpubConfig: NSObject {
     

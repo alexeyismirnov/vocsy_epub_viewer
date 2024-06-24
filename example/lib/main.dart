@@ -25,6 +25,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     download();
+
     super.initState();
   }
 
@@ -68,6 +69,9 @@ class _MyAppState extends State<MyApp> {
     if (Platform.isIOS) {
       final PermissionStatus status = await Permission.storage.request();
       if (status == PermissionStatus.granted) {
+        final documents = (await getApplicationDocumentsDirectory()).path;
+        await Directory("$documents/orthodoxbookshop/").create();
+
         await startDownload();
       } else {
         await Permission.storage.request();
@@ -114,19 +118,8 @@ class _MyAppState extends State<MyApp> {
                             nightMode: true,
                           );
 
-                          // get current locator
-                          VocsyEpub.locatorStream.listen((locator) {
-                            print('LOCATOR: $locator');
-                          });
-
                           VocsyEpub.open(
                             filePath,
-                            lastLocation: EpubLocator.fromJson({
-                              "bookId": "2239",
-                              "href": "/OEBPS/ch06.xhtml",
-                              "created": 1539934158390,
-                              "locations": {"cfi": "epubcfi(/0!/4/4[simple_book]/2/2/6)"}
-                            }),
                           );
                         }
                       },
@@ -147,13 +140,7 @@ class _MyAppState extends State<MyApp> {
                           print('LOCATOR: $locator');
                         });
                         await VocsyEpub.openAsset(
-                          'assets/4.epub',
-                          lastLocation: EpubLocator.fromJson({
-                            "bookId": "2239",
-                            "href": "/OEBPS/ch06.xhtml",
-                            "created": 1539934158390,
-                            "locations": {"cfi": "epubcfi(/0!/4/4[simple_book]/2/2/6)"}
-                          }),
+                          'assets/prayerbookSimpl.epub',
                         );
                       },
                       child: Text('Open Assets E-pub'),
@@ -165,19 +152,23 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+  //         "https://filedn.com/lUdNcEH0czFSe8uSnCeo29F/orthodoxbookshop/prayerbookTradit.epub",
+
   startDownload() async {
     setState(() {
       loading = true;
     });
-    Directory? appDocDir = Platform.isAndroid ? await getExternalStorageDirectory() : await getApplicationDocumentsDirectory();
+    Directory? appDocDir = Platform.isAndroid
+        ? await getExternalStorageDirectory()
+        : await getApplicationDocumentsDirectory();
 
-    String path = appDocDir!.path + '/sample.epub';
+    String path = appDocDir!.path + '/orthodoxbookshop/sample.epub';
     File file = File(path);
 
     if (!File(path).existsSync()) {
       await file.create();
       await dio.download(
-        "https://vocsyinfotech.in/envato/cc/flutter_ebook/uploads/22566_The-Racketeer---John-Grisham.epub",
+        "https://filedn.com/lUdNcEH0czFSe8uSnCeo29F/orthodoxbookshop/prayerbookTradit.epub",
         path,
         deleteOnError: true,
         onReceiveProgress: (receivedBytes, totalBytes) {
