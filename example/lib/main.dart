@@ -140,7 +140,7 @@ class _MyAppState extends State<MyApp> {
                           print('LOCATOR: $locator');
                         });
                         await VocsyEpub.openAsset(
-                          'assets/prayerbookSimpl.epub',
+                          'assets/4.epub',
                         );
                       },
                       child: Text('Open Assets E-pub'),
