@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'vocsy_epub_viewer'
-  s.version          = '2.0.1'
+  s.version          = '2.0.10'
   s.summary          = 'A Vocsy epub reader flutter plugin project.'
   s.description      = <<-DESC
 A new flutter plugin project.
@@ -22,16 +22,15 @@ A new flutter plugin project.
   
   s.ios.deployment_target = '15.0'
 
-  s.dependency 'RealmSwift', '3.17.3'
+  s.dependency 'RealmSwift', '10.20.0'
   s.dependency 'MenuItemKit', '3.1.3'
   s.dependency 'AEXML', '4.3.3'
   s.dependency 'FontBlaster', '4.1.0'
   s.dependency 'ZFDragableModalTransition', '0.6'
   s.dependency 'SSZipArchive', '2.1.1'
 
-  s.preserve_paths = 'FolioReaderKit.framework'
+  s.preserve_paths = 'FolioReaderKit.xcframework/**/*'
   s.xcconfig = { 'OTHER_LDFLAGS' => '-framework FolioReaderKit' }
-  s.vendored_frameworks = 'FolioReaderKit.framework'
-  
+  s.vendored_frameworks = 'FolioReaderKit.xcframework'
   
 end

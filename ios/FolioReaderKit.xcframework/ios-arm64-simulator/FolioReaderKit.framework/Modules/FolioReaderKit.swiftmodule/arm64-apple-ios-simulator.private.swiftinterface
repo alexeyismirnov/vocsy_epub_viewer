@@ -1,0 +1,569 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)
+// swift-module-flags: -target arm64-apple-ios15.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name FolioReaderKit
+import AEXML
+import AVFoundation
+import DeveloperToolsSupport
+@_exported import FolioReaderKit
+import FontBlaster
+import Foundation
+import MediaPlayer
+import MenuItemKit
+import Realm
+import RealmSwift
+import SSZipArchive
+import SafariServices
+import Swift
+import SwiftUI
+import UIKit
+import WebKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public enum FolioReaderFont : Swift.Int {
+  case andada
+  case lato
+  case lora
+  case raleway
+  public static func folioReaderFont(fontName: Swift.String) -> FolioReaderKit.FolioReaderFont?
+  public var cssIdentifier: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum FolioReaderFontSize : Swift.Int {
+  case xs
+  case s
+  case m
+  case l
+  case xl
+  public static func folioReaderFontSize(fontSizeStringRepresentation: Swift.String) -> FolioReaderKit.FolioReaderFontSize?
+  public var cssIdentifier: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum FolioReaderScrollDirection : Swift.Int {
+  case vertical
+  case horizontal
+  case horizontalWithVerticalContent
+  case defaultVertical
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public struct ClassBasedOnClickListener {
+  public var schemeName: Swift.String
+  public var querySelector: Swift.String
+  public var attributeName: Swift.String
+  public var selectAll: Swift.Bool
+  public var onClickAction: ((_ attributeContent: Swift.String?, _ touchPointRelativeToWebView: CoreFoundation.CGPoint) -> Swift.Void)
+  public init(schemeName: Swift.String, querySelector: Swift.String, attributeName: Swift.String, selectAll: Swift.Bool = true, onClickAction: @escaping ((_ attributeContent: Swift.String?, _ touchPointRelativeToWebView: CoreFoundation.CGPoint) -> Swift.Void))
+}
+@objc @_inheritsConvenienceInitializers open class FolioReaderConfig : ObjectiveC.NSObject {
+  open var classBasedOnClickListeners: [FolioReaderKit.ClassBasedOnClickListener]
+  open var tintColor: UIKit.UIColor
+  open var menuBackgroundColor: UIKit.UIColor
+  open var menuSeparatorColor: UIKit.UIColor
+  open var menuTextColor: UIKit.UIColor
+  open var menuTextColorSelected: UIKit.UIColor
+  open var daysModeNavBackground: UIKit.UIColor
+  open var nightModeNavBackground: UIKit.UIColor
+  open var nightModeBackground: UIKit.UIColor
+  open var nightModeMenuBackground: UIKit.UIColor
+  open var nightModeSeparatorColor: UIKit.UIColor
+  open var mediaOverlayColor: UIKit.UIColor! {
+    get
+    set
+  }
+  open var hideBars: Swift.Bool
+  open var scrollDirection: FolioReaderKit.FolioReaderScrollDirection
+  open var canChangeScrollDirection: Swift.Bool
+  open var canChangeFontStyle: Swift.Bool
+  open var shouldHideNavigationOnTap: Swift.Bool
+  open var allowSharing: Swift.Bool
+  open var enableTTS: Swift.Bool
+  open var displayTitle: Swift.Bool
+  open var hidePageIndicator: Swift.Bool
+  open var loadSavedPositionForCurrentBook: Swift.Bool
+  open var quoteCustomLogoImage: UIKit.UIImage?
+  open var quoteCustomBackgrounds: [FolioReaderKit.QuoteImage]
+  open var quotePreserveDefaultBackgrounds: Swift.Bool
+  open var realmConfiguration: RealmSwift.Realm.Configuration
+  open var localizedHighlightsTitle: Swift.String
+  open var localizedContentsTitle: Swift.String
+  open var useReaderMenuController: Swift.Bool
+  open var identifier: Swift.String?
+  open var localizedHighlightsDateFormat: Swift.String
+  open var localizedHighlightMenu: Swift.String
+  open var localizedDefineMenu: Swift.String
+  open var localizedPlayMenu: Swift.String
+  open var localizedPauseMenu: Swift.String
+  open var localizedFontMenuNight: Swift.String
+  open var localizedPlayerMenuStyle: Swift.String
+  open var localizedFontMenuDay: Swift.String
+  open var localizedLayoutHorizontal: Swift.String
+  open var localizedLayoutVertical: Swift.String
+  open var localizedReaderOnePageLeft: Swift.String
+  open var localizedReaderManyPagesLeft: Swift.String
+  open var localizedReaderManyMinutes: Swift.String
+  open var localizedReaderOneMinute: Swift.String
+  open var localizedReaderLessThanOneMinute: Swift.String
+  open var localizedShareWebLink: Foundation.URL?
+  open var localizedShareChapterSubject: Swift.String
+  open var localizedShareHighlightSubject: Swift.String
+  open var localizedShareAllExcerptsFrom: Swift.String
+  open var localizedShareBy: Swift.String
+  open var localizedCancel: Swift.String
+  open var localizedShare: Swift.String
+  open var localizedChooseExisting: Swift.String
+  open var localizedTakePhoto: Swift.String
+  open var localizedShareImageQuote: Swift.String
+  open var localizedShareTextQuote: Swift.String
+  open var localizedSave: Swift.String
+  open var localizedHighlightNote: Swift.String
+  convenience public init(withIdentifier identifier: Swift.String)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public protocol FolioReaderPageDelegate {
+  @objc optional func pageWillLoad(_ page: FolioReaderKit.FolioReaderPage)
+  @objc optional func pageDidLoad(_ page: FolioReaderKit.FolioReaderPage)
+  @objc optional func pageTap(_ recognizer: UIKit.UITapGestureRecognizer)
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class FolioReaderPage : UIKit.UICollectionViewCell, WebKit.WKNavigationDelegate, UIKit.UIGestureRecognizerDelegate {
+  @_Concurrency.MainActor(unsafe) open var pageNumber: Swift.Int!
+  @_Concurrency.MainActor(unsafe) open var webView: FolioReaderKit.FolioReaderWebView?
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreFoundation.CGRect)
+  @_Concurrency.MainActor(unsafe) public func setup(withReaderContainer readerContainer: FolioReaderKit.FolioReaderContainer)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc deinit
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func layoutSubviews()
+  @_Concurrency.MainActor(unsafe) @objc public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
+  @_Concurrency.MainActor(unsafe) @objc public func webView(_ webView: WebKit.WKWebView, didStartProvisionalNavigation navigation: WebKit.WKNavigation!)
+  @_Concurrency.MainActor(unsafe) @objc open func gestureRecognizer(_ gestureRecognizer: UIKit.UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIKit.UIGestureRecognizer) -> Swift.Bool
+  @objc @_Concurrency.MainActor(unsafe) open func handleTapGesture(_ recognizer: UIKit.UITapGestureRecognizer)
+  @_Concurrency.MainActor(unsafe) open func scrollPageToOffset(_ offset: CoreFoundation.CGFloat, animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) open func scrollPageToBottom()
+  @_Concurrency.MainActor(unsafe) open func handleAnchor(_ anchor: Swift.String, avoidBeginningAnchors: Swift.Bool, animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func canPerformAction(_ action: ObjectiveC.Selector, withSender sender: Any?) -> Swift.Bool
+  @_Concurrency.MainActor(unsafe) open func performJavaScript(_ javaScriptCode: Swift.String) -> Swift.String?
+}
+@objc @_Concurrency.MainActor(unsafe) open class FolioReaderContainer : UIKit.UIViewController {
+  @_Concurrency.MainActor(unsafe) public var epubPath: Swift.String
+  @_Concurrency.MainActor(unsafe) public var unzipPath: Swift.String?
+  @_Concurrency.MainActor(unsafe) public var book: FolioReaderKit.FRBook
+  @_Concurrency.MainActor(unsafe) public var centerNavigationController: UIKit.UINavigationController?
+  @_Concurrency.MainActor(unsafe) public var centerViewController: FolioReaderKit.FolioReaderCenter?
+  @_Concurrency.MainActor(unsafe) public var audioPlayer: FolioReaderKit.FolioReaderAudioPlayer?
+  @_Concurrency.MainActor(unsafe) public var readerConfig: FolioReaderKit.FolioReaderConfig
+  @_Concurrency.MainActor(unsafe) public var folioReader: FolioReaderKit.FolioReader
+  @_Concurrency.MainActor(unsafe) public init(withConfig config: FolioReaderKit.FolioReaderConfig, folioReader: FolioReaderKit.FolioReader, epubPath path: Swift.String, unzipPath: Swift.String? = nil, removeEpub: Swift.Bool = true)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) open func setupConfig(_ config: FolioReaderKit.FolioReaderConfig, epubPath path: Swift.String, unzipPath: Swift.String? = nil, removeEpub: Swift.Bool = true)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewDidAppear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open var prefersStatusBarHidden: Swift.Bool {
+    @objc get
+  }
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open var preferredStatusBarUpdateAnimation: UIKit.UIStatusBarAnimation {
+    @objc get
+  }
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open var preferredStatusBarStyle: UIKit.UIStatusBarStyle {
+    @objc get
+  }
+  @objc deinit
+}
+public enum HighlightStyle : Swift.Int {
+  case yellow
+  case green
+  case blue
+  case pink
+  case underline
+  public init()
+  public static func styleForClass(_ className: Swift.String) -> FolioReaderKit.HighlightStyle
+  public static func classForStyle(_ style: Swift.Int) -> Swift.String
+  public static func colorForStyle(_ style: Swift.Int, nightMode: Swift.Bool = false) -> UIKit.UIColor
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public typealias Completion = (_ error: Foundation.NSError?) -> ()
+extension FolioReaderKit.Highlight {
+  public func persist(withConfiguration readerConfig: FolioReaderKit.FolioReaderConfig, completion: FolioReaderKit.Completion? = nil)
+  public func remove(withConfiguration readerConfig: FolioReaderKit.FolioReaderConfig)
+  public static func removeById(withConfiguration readerConfig: FolioReaderKit.FolioReaderConfig, highlightId: Swift.String)
+  public static func getById(withConfiguration readerConfig: FolioReaderKit.FolioReaderConfig, highlightId: Swift.String) -> FolioReaderKit.Highlight?
+  public static func updateById(withConfiguration readerConfig: FolioReaderKit.FolioReaderConfig, highlightId: Swift.String, type: FolioReaderKit.HighlightStyle)
+  public static func allByBookId(withConfiguration readerConfig: FolioReaderKit.FolioReaderConfig, bookId: Swift.String, andPage page: Foundation.NSNumber? = nil) -> [FolioReaderKit.Highlight]
+  public static func all(withConfiguration readerConfig: FolioReaderKit.FolioReaderConfig) -> [FolioReaderKit.Highlight]
+}
+extension FolioReaderKit.Highlight {
+  public struct MatchingHighlight {
+  }
+  public static func matchHighlight(_ matchingHighlight: FolioReaderKit.Highlight.MatchingHighlight) -> FolioReaderKit.Highlight?
+  public static func removeFromHTMLById(withinPage page: FolioReaderKit.FolioReaderPage?, highlightId: Swift.String, completionHandler: @escaping (Swift.String?) -> Swift.Void)
+  public static func removeSentenceSpam(_ text: Swift.String) -> Swift.String
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class SMSegmentView : UIKit.UIControl {
+  @_Concurrency.MainActor(unsafe) open var segmentAppearance: FolioReaderKit.SMSegmentAppearance?
+  @_Concurrency.MainActor(unsafe) open var dividerColour: UIKit.UIColor {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) open var dividerWidth: CoreFoundation.CGFloat {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) open var selectedSegmentIndex: Swift.Int {
+    get
+    set(newIndex)
+  }
+  @_Concurrency.MainActor(unsafe) open var organiseMode: FolioReaderKit.SMSegmentOrganiseMode {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) open var numberOfSegments: Swift.Int {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreFoundation.CGRect)
+  @_Concurrency.MainActor(unsafe) public init(frame: CoreFoundation.CGRect, dividerColour: UIKit.UIColor, dividerWidth: CoreFoundation.CGFloat, segmentAppearance: FolioReaderKit.SMSegmentAppearance)
+  @_Concurrency.MainActor(unsafe) open func addSegmentWithTitle(_ title: Swift.String?, onSelectionImage: UIKit.UIImage? = nil, offSelectionImage: UIKit.UIImage? = nil)
+  @_Concurrency.MainActor(unsafe) open func insertSegmentWithTitle(_ title: Swift.String?, onSelectionImage: UIKit.UIImage?, offSelectionImage: UIKit.UIImage?, index: Swift.Int)
+  @_Concurrency.MainActor(unsafe) open func removeSegmentAtIndex(_ index: Swift.Int)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func layoutSubviews()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func draw(_ rect: CoreFoundation.CGRect)
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) open class FolioReaderWebView : WebKit.WKWebView {
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func canPerformAction(_ action: ObjectiveC.Selector, withSender sender: Any?) -> Swift.Bool
+  @_Concurrency.MainActor(unsafe) open func setMenuVisible(_ menuVisible: Swift.Bool, animated: Swift.Bool = true, andRect rect: CoreFoundation.CGRect = CGRect.zero)
+  @_Concurrency.MainActor(unsafe) open func js(_ script: Swift.String, completionHandler: ((Swift.String?) -> Swift.Void)? = nil)
+  @objc deinit
+}
+public enum FolioReaderError : Swift.Error, Foundation.LocalizedError {
+  case bookNotAvailable
+  case errorInContainer
+  case errorInOpf
+  case authorNameNotAvailable
+  case coverNotAvailable
+  case invalidImage(path: Swift.String)
+  case titleNotAvailable
+  case fullPathEmpty
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+public enum MediaOverlayStyle : Swift.Int {
+  case `default`
+  case underline
+  case textColor
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public protocol FolioReaderDelegate {
+  @objc optional func folioReader(_ folioReader: FolioReaderKit.FolioReader, didFinishedLoading book: FolioReaderKit.FRBook)
+  @objc optional func folioReaderDidClose(_ folioReader: FolioReaderKit.FolioReader)
+  @available(*, deprecated, message: "Use 'folioReaderDidClose(_ folioReader: FolioReader)' instead.")
+  @objc optional func folioReaderDidClosed()
+}
+@objc @_inheritsConvenienceInitializers open class FolioReader : ObjectiveC.NSObject {
+  @objc override dynamic public init()
+  @objc deinit
+  open var unzipPath: Swift.String?
+  weak open var delegate: (any FolioReaderKit.FolioReaderDelegate)?
+  weak open var readerContainer: FolioReaderKit.FolioReaderContainer?
+  weak open var readerAudioPlayer: FolioReaderKit.FolioReaderAudioPlayer?
+  weak open var readerCenter: FolioReaderKit.FolioReaderCenter? {
+    get
+  }
+}
+extension FolioReaderKit.FolioReader {
+  open func presentReader(parentViewController: UIKit.UIViewController, withEpubPath epubPath: Swift.String, unzipPath: Swift.String? = nil, andConfig config: FolioReaderKit.FolioReaderConfig, shouldRemoveEpub: Swift.Bool = true, animated: Swift.Bool = true)
+}
+extension FolioReaderKit.FolioReader {
+  public func register(defaults: [Swift.String : Any])
+  open var nightMode: Swift.Bool {
+    get
+    set(value)
+  }
+  open var currentFont: FolioReaderKit.FolioReaderFont {
+    get
+    set(font)
+  }
+  open var currentFontSize: FolioReaderKit.FolioReaderFontSize {
+    get
+    set(value)
+  }
+  open var currentAudioRate: Swift.Int {
+    get
+    set(value)
+  }
+  open var currentHighlightStyle: Swift.Int {
+    get
+    set(value)
+  }
+  open var currentMediaOverlayStyle: FolioReaderKit.MediaOverlayStyle {
+    get
+    set(value)
+  }
+  open var currentScrollDirection: Swift.Int {
+    get
+    set(value)
+  }
+  open var currentMenuIndex: Swift.Int {
+    get
+    set(value)
+  }
+  open var savedPositionForCurrentBook: [Swift.String : Any]? {
+    get
+    set
+  }
+}
+extension FolioReaderKit.FolioReader {
+  open class func getCoverImage(_ epubPath: Swift.String, unzipPath: Swift.String? = nil) throws -> UIKit.UIImage
+  open class func getTitle(_ epubPath: Swift.String, unzipPath: Swift.String? = nil) throws -> Swift.String
+  open class func getAuthorName(_ epubPath: Swift.String, unzipPath: Swift.String? = nil) throws -> Swift.String
+}
+extension FolioReaderKit.FolioReader {
+  @objc dynamic open func saveReaderState()
+  open func close()
+}
+@objc public protocol FolioReaderCenterDelegate {
+  @objc optional func pageDidAppear(_ page: FolioReaderKit.FolioReaderPage)
+  @objc optional func htmlContentForPage(_ page: FolioReaderKit.FolioReaderPage, htmlContent: Swift.String) -> Swift.String
+  @objc optional func pageItemChanged(_ pageNumber: Swift.Int)
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) open class FolioReaderCenter : UIKit.UIViewController, UIKit.UICollectionViewDelegate, UIKit.UICollectionViewDataSource, UIKit.UICollectionViewDelegateFlowLayout {
+  @_Concurrency.MainActor(unsafe) weak open var delegate: (any FolioReaderKit.FolioReaderCenterDelegate)?
+  @_Concurrency.MainActor(unsafe) weak open var pageDelegate: (any FolioReaderKit.FolioReaderPageDelegate)?
+  @_Concurrency.MainActor(unsafe) weak open var readerContainer: FolioReaderKit.FolioReaderContainer?
+  @_Concurrency.MainActor(unsafe) open var currentPage: FolioReaderKit.FolioReaderPage? {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open var collectionView: UIKit.UICollectionView!
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func traitCollectionDidChange(_ previousTraitCollection: UIKit.UITraitCollection?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewWillAppear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewDidLayoutSubviews()
+  @_Concurrency.MainActor(unsafe) open func enableScrollBetweenChapters(scrollEnabled: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc open func numberOfSections(in collectionView: UIKit.UICollectionView) -> Swift.Int
+  @_Concurrency.MainActor(unsafe) @objc open func collectionView(_ collectionView: UIKit.UICollectionView, numberOfItemsInSection section: Swift.Int) -> Swift.Int
+  @_Concurrency.MainActor(unsafe) @objc open func collectionView(_ collectionView: UIKit.UICollectionView, cellForItemAt indexPath: Foundation.IndexPath) -> UIKit.UICollectionViewCell
+  @_Concurrency.MainActor(unsafe) @objc public func collectionView(_ collectionView: UIKit.UICollectionView, layout collectionViewLayout: UIKit.UICollectionViewLayout, sizeForItemAt indexPath: Foundation.IndexPath) -> CoreFoundation.CGSize
+  @_Concurrency.MainActor(unsafe) @objc open func scrollViewWillBeginDragging(_ scrollView: UIKit.UIScrollView)
+  @_Concurrency.MainActor(unsafe) @objc open func scrollViewDidScroll(_ scrollView: UIKit.UIScrollView)
+  @_Concurrency.MainActor(unsafe) @objc open func scrollViewDidEndDecelerating(_ scrollView: UIKit.UIScrollView)
+  @_Concurrency.MainActor(unsafe) @objc open func scrollViewDidEndDragging(_ scrollView: UIKit.UIScrollView, willDecelerate decelerate: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc open func scrollViewDidEndScrollingAnimation(_ scrollView: UIKit.UIScrollView)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func willRotate(to toInterfaceOrientation: UIKit.UIInterfaceOrientation, duration: Foundation.TimeInterval)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func didRotate(from fromInterfaceOrientation: UIKit.UIInterfaceOrientation)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func willAnimateRotation(to toInterfaceOrientation: UIKit.UIInterfaceOrientation, duration: Foundation.TimeInterval)
+  @_Concurrency.MainActor(unsafe) open func changePageWith(page: Swift.Int, andFragment fragment: Swift.String, animated: Swift.Bool = false, completion: (() -> Swift.Void)? = nil)
+  @_Concurrency.MainActor(unsafe) open func changePageWith(href: Swift.String, animated: Swift.Bool = false, completion: (() -> Swift.Void)? = nil)
+  @_Concurrency.MainActor(unsafe) open func changePageWith(href: Swift.String, andAudioMarkID markID: Swift.String)
+  @_Concurrency.MainActor(unsafe) open func changePageWith(indexPath: Foundation.IndexPath, animated: Swift.Bool = false, completion: (() -> Swift.Void)? = nil)
+  @_Concurrency.MainActor(unsafe) open func changePageWith(href: Swift.String, pageItem: Swift.Int, animated: Swift.Bool = false, completion: (() -> Swift.Void)? = nil)
+  @_Concurrency.MainActor(unsafe) open func isLastPage() -> Swift.Bool
+  @_Concurrency.MainActor(unsafe) public func changePageToNext(_ completion: (() -> Swift.Void)? = nil)
+  @_Concurrency.MainActor(unsafe) public func changePageToPrevious(_ completion: (() -> Swift.Void)? = nil)
+  @_Concurrency.MainActor(unsafe) public func changePageItemToNext(_ completion: (() -> Swift.Void)? = nil)
+  @_Concurrency.MainActor(unsafe) public func getCurrentPageItemNumber() -> Swift.Int
+  @_Concurrency.MainActor(unsafe) public func getCurrentPageProgress() -> Swift.Float
+  @_Concurrency.MainActor(unsafe) public func changePageItemToPrevious(_ completion: (() -> Swift.Void)? = nil)
+  @_Concurrency.MainActor(unsafe) public func changePageItemToLast(animated: Swift.Bool = true, _ completion: (() -> Swift.Void)? = nil)
+  @_Concurrency.MainActor(unsafe) public func changePageItem(to: Swift.Int, animated: Swift.Bool = true, completion: (() -> Swift.Void)? = nil)
+  @_Concurrency.MainActor(unsafe) public func findPageByResource(_ reference: FolioReaderKit.FRTocReference) -> Swift.Int
+  @_Concurrency.MainActor(unsafe) public func findPageByHref(_ href: Swift.String) -> Swift.Int
+  @_Concurrency.MainActor(unsafe) public func getCurrentChapter() -> FolioReaderKit.FRResource?
+  @_Concurrency.MainActor(unsafe) public func getCurrentChapterProgress() -> CoreFoundation.CGFloat
+  @_Concurrency.MainActor(unsafe) public func getCurrentChapterName() -> Swift.String?
+  @_Concurrency.MainActor(unsafe) public func changePageWith(page: Swift.Int, animated: Swift.Bool = false, completion: (() -> Swift.Void)? = nil)
+  @objc deinit
+}
+extension FolioReaderKit.FolioReaderCenter : FolioReaderKit.FolioReaderPageDelegate {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func pageDidLoad(_ page: FolioReaderKit.FolioReaderPage)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func pageWillLoad(_ page: FolioReaderKit.FolioReaderPage)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func pageTap(_ recognizer: UIKit.UITapGestureRecognizer)
+}
+@objc @_inheritsConvenienceInitializers open class Highlight : RealmSwift.Object {
+  @objc dynamic open var bookId: Swift.String!
+  @objc dynamic open var content: Swift.String!
+  @objc dynamic open var contentPost: Swift.String!
+  @objc dynamic open var contentPre: Swift.String!
+  @objc dynamic open var date: Foundation.Date!
+  @objc dynamic open var highlightId: Swift.String!
+  @objc dynamic open var page: Swift.Int
+  @objc dynamic open var type: Swift.Int
+  @objc dynamic open var startOffset: Swift.Int
+  @objc dynamic open var endOffset: Swift.Int
+  @objc dynamic open var noteForHighlight: Swift.String?
+  @objc override dynamic open class func primaryKey() -> Swift.String
+  @objc override dynamic public init()
+  @objc deinit
+}
+public struct MediaType : Swift.Equatable {
+  public let name: Swift.String
+  public let defaultExtension: Swift.String
+  public let extensions: [Swift.String]
+  public init(name: Swift.String, defaultExtension: Swift.String, extensions: [Swift.String] = [])
+}
+public func == (lhs: FolioReaderKit.MediaType, rhs: FolioReaderKit.MediaType) -> Swift.Bool
+extension UIKit.UINavigationController {
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open var preferredStatusBarStyle: UIKit.UIStatusBarStyle {
+    @objc get
+  }
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open var supportedInterfaceOrientations: UIKit.UIInterfaceOrientationMask {
+    @objc get
+  }
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open var shouldAutorotate: Swift.Bool {
+    @objc get
+  }
+}
+extension UIKit.UIAlertController {
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open var supportedInterfaceOrientations: UIKit.UIInterfaceOrientationMask {
+    @objc get
+  }
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open var shouldAutorotate: Swift.Bool {
+    @objc get
+  }
+}
+@objc @_inheritsConvenienceInitializers open class FRResource : ObjectiveC.NSObject {
+  public var href: Swift.String!
+  public var fullHref: Swift.String!
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers open class FolioReaderAudioPlayer : ObjectiveC.NSObject {
+  @objc deinit
+}
+extension FolioReaderKit.FolioReaderAudioPlayer : AVFAudio.AVSpeechSynthesizerDelegate {
+  @objc dynamic public func speechSynthesizer(_ synthesizer: AVFAudio.AVSpeechSynthesizer, didCancel utterance: AVFAudio.AVSpeechUtterance)
+  @objc dynamic public func speechSynthesizer(_ synthesizer: AVFAudio.AVSpeechSynthesizer, didFinish utterance: AVFAudio.AVSpeechUtterance)
+}
+extension FolioReaderKit.FolioReaderAudioPlayer : AVFAudio.AVAudioPlayerDelegate {
+  @objc dynamic public func audioPlayerDidFinishPlaying(_ player: AVFAudio.AVAudioPlayer, successfully flag: Swift.Bool)
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) open class SMSegment : UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) public var title: Swift.String? {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) open var onSelectionImage: UIKit.UIImage?
+  @_Concurrency.MainActor(unsafe) open var offSelectionImage: UIKit.UIImage?
+  @_Concurrency.MainActor(unsafe) open var appearance: FolioReaderKit.SMSegmentAppearance?
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreFoundation.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func layoutSubviews()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func touchesBegan(_ touches: Swift.Set<UIKit.UITouch>, with event: UIKit.UIEvent?)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func touchesEnded(_ touches: Swift.Set<UIKit.UITouch>, with event: UIKit.UIEvent?)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func touchesCancelled(_ touches: Swift.Set<UIKit.UITouch>, with event: UIKit.UIEvent?)
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers open class FRTocReference : ObjectiveC.NSObject {
+  public var title: Swift.String!
+  public var resource: FolioReaderKit.FRResource?
+  public var fragmentID: Swift.String?
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers open class FRBook : ObjectiveC.NSObject {
+  public var opfResource: FolioReaderKit.FRResource!
+  public var tocResource: FolioReaderKit.FRResource?
+  public var uniqueIdentifier: Swift.String?
+  public var coverImage: FolioReaderKit.FRResource?
+  public var name: Swift.String?
+  public var resources: FolioReaderKit.FRResources
+  public var tableOfContents: [FolioReaderKit.FRTocReference]!
+  public var flatTableOfContents: [FolioReaderKit.FRTocReference]!
+  @objc override dynamic public init()
+  @objc deinit
+}
+open class SMSegmentAppearance {
+  open var segmentOnSelectionColour: UIKit.UIColor
+  open var segmentOffSelectionColour: UIKit.UIColor
+  open var segmentTouchDownColour: UIKit.UIColor {
+    get
+  }
+  open var titleOnSelectionColour: UIKit.UIColor
+  open var titleOffSelectionColour: UIKit.UIColor
+  open var titleOnSelectionFont: UIKit.UIFont
+  open var titleOffSelectionFont: UIKit.UIFont
+  open var titleGravity: FolioReaderKit.SMSTitleGravity
+  open var contentVerticalMargin: CoreFoundation.CGFloat
+  public init()
+  public init(contentVerticalMargin: CoreFoundation.CGFloat, segmentOnSelectionColour: UIKit.UIColor, segmentOffSelectionColour: UIKit.UIColor, titleOnSelectionColour: UIKit.UIColor, titleOffSelectionColour: UIKit.UIColor, titleOnSelectionFont: UIKit.UIFont, titleOffSelectionFont: UIKit.UIFont, titleGravity: FolioReaderKit.SMSTitleGravity?)
+  @objc deinit
+}
+public struct SMSegmentedControlKeys {
+}
+public enum SMSegmentOrganiseMode : Swift.Int {
+  case horizontal
+  case vertical
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum SMSTitleGravity {
+  case right
+  case bottom
+  case left
+  case top
+  public static func == (a: FolioReaderKit.SMSTitleGravity, b: FolioReaderKit.SMSTitleGravity) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct QuoteImage {
+  public var image: UIKit.UIImage!
+  public var alpha: CoreFoundation.CGFloat!
+  public var textColor: UIKit.UIColor!
+  public var backgroundColor: UIKit.UIColor!
+  public init(withImage image: UIKit.UIImage, alpha: CoreFoundation.CGFloat = 1, textColor: UIKit.UIColor = UIColor.white, backgroundColor: UIKit.UIColor = UIColor.white)
+  public init(withGradient gradient: QuartzCore.CAGradientLayer, alpha: CoreFoundation.CGFloat = 1, textColor: UIKit.UIColor = UIColor.white, backgroundColor: UIKit.UIColor = UIColor.white)
+  public init(withColor color: UIKit.UIColor, alpha: CoreFoundation.CGFloat = 1, textColor: UIKit.UIColor = UIColor.white, backgroundColor: UIKit.UIColor = UIColor.white)
+}
+@objc @_inheritsConvenienceInitializers open class FRResources : ObjectiveC.NSObject {
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension FolioReaderKit.FolioReaderFont : Swift.Equatable {}
+extension FolioReaderKit.FolioReaderFont : Swift.Hashable {}
+extension FolioReaderKit.FolioReaderFont : Swift.RawRepresentable {}
+extension FolioReaderKit.FolioReaderFontSize : Swift.Equatable {}
+extension FolioReaderKit.FolioReaderFontSize : Swift.Hashable {}
+extension FolioReaderKit.FolioReaderFontSize : Swift.RawRepresentable {}
+extension FolioReaderKit.FolioReaderScrollDirection : Swift.Equatable {}
+extension FolioReaderKit.FolioReaderScrollDirection : Swift.Hashable {}
+extension FolioReaderKit.FolioReaderScrollDirection : Swift.RawRepresentable {}
+extension FolioReaderKit.HighlightStyle : Swift.Equatable {}
+extension FolioReaderKit.HighlightStyle : Swift.Hashable {}
+extension FolioReaderKit.HighlightStyle : Swift.RawRepresentable {}
+extension FolioReaderKit.MediaOverlayStyle : Swift.Equatable {}
+extension FolioReaderKit.MediaOverlayStyle : Swift.Hashable {}
+extension FolioReaderKit.MediaOverlayStyle : Swift.RawRepresentable {}
+extension FolioReaderKit.SMSegmentOrganiseMode : Swift.Equatable {}
+extension FolioReaderKit.SMSegmentOrganiseMode : Swift.Hashable {}
+extension FolioReaderKit.SMSegmentOrganiseMode : Swift.RawRepresentable {}
+extension FolioReaderKit.SMSTitleGravity : Swift.Equatable {}
+extension FolioReaderKit.SMSTitleGravity : Swift.Hashable {}
