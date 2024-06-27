@@ -162,7 +162,10 @@ class _MyAppState extends State<MyApp> {
         ? await getExternalStorageDirectory()
         : await getApplicationDocumentsDirectory();
 
-    String path = appDocDir!.path + '/orthodoxbookshop/sample.epub';
+    final dir = appDocDir!.path + '/orthodoxbookshop';
+    await Directory(dir).create();
+
+    String path = "$dir/sample.epub";
     File file = File(path);
 
     if (!File(path).existsSync()) {
