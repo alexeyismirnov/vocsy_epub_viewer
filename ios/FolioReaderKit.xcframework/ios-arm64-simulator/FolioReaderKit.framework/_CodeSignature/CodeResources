@@ -78,7 +78,7 @@
 		</data>
 		<key>Modules/FolioReaderKit.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		2K5MGpbETclfXKiZvJSCj+MnzPI=
+		IKLpZxw80PnmB7shz6M6vbRXkt0=
 		</data>
 		<key>Modules/FolioReaderKit.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
@@ -94,7 +94,7 @@
 		</data>
 		<key>Modules/FolioReaderKit.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		Pn+IWIAIoD50rv6SWgNfSHbesuU=
+		ns6l6GDR7nx9svTVPVSShCqCYoM=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -246,7 +246,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			v4fm+JjADsC5ZypD4y1DpxTS/pHtZ3a3RJXTZwTp4jU=
+			c9ton0nYzfRsP2nLmPEopXTId8TmHeQ6YGW+aQsi6Ak=
 			</data>
 		</dict>
 		<key>Modules/FolioReaderKit.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
@@ -274,7 +274,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			7ScJHTdU8ZSFyAgd+/haLGiPnZA+YtACHGlxa4Vd4aY=
+			dxcOpOzoYoHaBKrHm6kWp8oyTcU1H+edWEwf3sllT4s=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
