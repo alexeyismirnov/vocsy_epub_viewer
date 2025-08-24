@@ -58,39 +58,44 @@ public class Reader implements OnHighlightListener, ReadLocatorListener, FolioRe
             public void run() {
                 try {
                     Log.i("SavedLocation", "-> savedLocation -> " + location);
+
                     if (location != null && !location.isEmpty()) {
-                        ReadLocator readLocator = ReadLocator.fromJson(location);
-                        folioReader.setReadLocator(readLocator);
+                        // FIX 1: Use proper error handling for ReadLocator parsing
+                        try {
+                            ReadLocator readLocator = ReadLocator.fromJson(location);
+                            folioReader.setReadLocator(readLocator);
+                        } catch (Exception e) {
+                            Log.e("Reader", "Failed to parse ReadLocator: " + e.getMessage());
+                            // Continue without setting read locator
+                        }
                     }
+
+
                     folioReader.setConfig(readerConfig.config, true)
                             .openBook(path);
                 } catch (Exception e) {
+                    Log.e("Reader", "Error opening book: " + e.getMessage());
                     e.printStackTrace();
                 }
             }
         }).start();
-
     }
 
     public void close() {
-        folioReader.close();
+        if (folioReader != null) {
+            folioReader.close();
+        }
     }
 
     private void setPageHandler(BinaryMessenger messenger) {
-//        final MethodChannel channel = new MethodChannel(registrar.messenger(), "page");
-//        channel.setMethodCallHandler(new EpubKittyPlugin());
         Log.i("event sink is", "in set page handler:");
         eventChannel = new EventChannel(messenger, PAGE_CHANNEL);
 
         try {
-
             eventChannel.setStreamHandler(new EventChannel.StreamHandler() {
-
                 @Override
                 public void onListen(Object o, EventChannel.EventSink eventSink) {
-
-                    Log.i("event sink is", "this is eveent sink:");
-
+                    Log.i("event sink is", "this is event sink:");
                     pageEventSink = eventSink;
                     if (pageEventSink == null) {
                         Log.i("empty", "Sink is empty");
@@ -99,11 +104,11 @@ public class Reader implements OnHighlightListener, ReadLocatorListener, FolioRe
 
                 @Override
                 public void onCancel(Object o) {
-
+                    // Clean up if needed
                 }
             });
-        } catch (Error err) {
-            Log.i("and error", "error is " + err.toString());
+        } catch (Exception err) {
+            Log.e("Reader", "Error setting up page handler: " + err.toString());
         }
     }
 
@@ -113,27 +118,39 @@ public class Reader implements OnHighlightListener, ReadLocatorListener, FolioRe
             public void run() {
                 ArrayList<HighLight> highlightList = null;
                 ObjectMapper objectMapper = new ObjectMapper();
+
                 try {
-                    highlightList = objectMapper.readValue(
-                            loadAssetTextAsString("highlights/highlights_data.json"),
-                            new TypeReference<List<HighlightData>>() {
-                            });
+                    String jsonString = loadAssetTextAsString("highlights/highlights_data.json");
+                    if (jsonString != null && !jsonString.isEmpty()) {
+                        // FIX 2: Parse as HighLight instead of HighlightData
+                        List<HighLight> tempList = objectMapper.readValue(
+                                jsonString,
+                                new TypeReference<List<HighLight>>() {}
+                        );
+                        highlightList = new ArrayList<>(tempList);
+                    }
                 } catch (IOException e) {
+                    Log.e("Reader", "Error parsing highlights: " + e.getMessage());
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    Log.e("Reader", "Unexpected error loading highlights: " + e.getMessage());
                     e.printStackTrace();
                 }
 
-                if (highlightList == null) {
+                // FIX 3: Only save if highlightList is NOT null and not empty
+                if (highlightList != null && !highlightList.isEmpty()) {
                     folioReader.saveReceivedHighLights(highlightList, new OnSaveHighlight() {
                         @Override
                         public void onFinished() {
-                            //You can do anything on successful saving highlight list
+                            Log.i("Reader", "Successfully saved highlights");
                         }
                     });
+                } else {
+                    Log.i("Reader", "No highlights to save");
                 }
             }
         }).start();
     }
-
 
     private String loadAssetTextAsString(String name) {
         BufferedReader in = null;
@@ -153,13 +170,13 @@ public class Reader implements OnHighlightListener, ReadLocatorListener, FolioRe
             }
             return buf.toString();
         } catch (IOException e) {
-            Log.e("Reader", "Error opening asset " + name);
+            Log.e("Reader", "Error opening asset " + name + ": " + e.getMessage());
         } finally {
             if (in != null) {
                 try {
                     in.close();
                 } catch (IOException e) {
-                    Log.e("Reader", "Error closing asset " + name);
+                    Log.e("Reader", "Error closing asset " + name + ": " + e.getMessage());
                 }
             }
         }
@@ -168,22 +185,30 @@ public class Reader implements OnHighlightListener, ReadLocatorListener, FolioRe
 
     @Override
     public void onFolioReaderClosed() {
-        Log.i("readLocator", "-> saveReadLocator -> " + read_locator.toJson());
+        if (read_locator != null) {
+            Log.i("readLocator", "-> saveReadLocator -> " + read_locator.toJson());
+            if (pageEventSink != null) {
+                pageEventSink.success(read_locator.toJson());
+            }
 
-        if (pageEventSink != null) {
-            pageEventSink.success(read_locator.toJson());
+
+        } else {
+            Log.w("Reader", "ReadLocator is null when closing");
+            if (pageEventSink != null) {
+                pageEventSink.success(null);
+            }
         }
     }
 
     @Override
     public void onHighlight(HighLight highlight, HighLight.HighLightAction type) {
-
+        // Handle highlight actions if needed
+        Log.i("Reader", "Highlight action: " + type.toString());
     }
 
     @Override
     public void saveReadLocator(ReadLocator readLocator) {
         read_locator = readLocator;
+        Log.i("Reader", "ReadLocator saved: " + (readLocator != null ? readLocator.toJson() : "null"));
     }
-
-
 }

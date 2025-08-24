@@ -14,12 +14,9 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 
 import androidx.annotation.NonNull;
-
-import com.folioreader.model.locators.ReadLocator;
 
 /**
  * EpubReaderPlugin
@@ -29,71 +26,41 @@ public class EpubViewerPlugin implements MethodCallHandler, FlutterPlugin, Activ
     private Reader reader;
     private ReaderConfig config;
     private MethodChannel channel;
-    static private Activity activity;
-    static private Context context;
-    static BinaryMessenger messenger;
-    static private EventChannel eventChannel;
-    static private EventChannel.EventSink sink;
+    private EventChannel eventChannel;
+    private EventChannel.EventSink sink;
+
+    // Made these non-static for better lifecycle management
+    private Activity activity;
+    private Context context;
+    private BinaryMessenger messenger;
+
     private static final String channelName = "vocsy_epub_viewer";
-
-    /**
-     * Plugin registration.
-     */
-    public static void registerWith(Registrar registrar) {
-
-        context = registrar.context();
-        activity = registrar.activity();
-        messenger = registrar.messenger();
-        new EventChannel(messenger, "page").setStreamHandler(new EventChannel.StreamHandler() {
-
-            @Override
-            public void onListen(Object o, EventChannel.EventSink eventSink) {
-
-                sink = eventSink;
-                if (sink == null) {
-                    Log.i("empty", "Sink is empty");
-                }
-            }
-
-            @Override
-            public void onCancel(Object o) {
-
-            }
-        });
-
-
-        final MethodChannel channel = new MethodChannel(registrar.messenger(), "vocsy_epub_viewer");
-        channel.setMethodCallHandler(new EpubViewerPlugin());
-
-    }
 
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
         messenger = binding.getBinaryMessenger();
         context = binding.getApplicationContext();
-        new EventChannel(messenger, "page").setStreamHandler(new EventChannel.StreamHandler() {
 
-            @Override
-            public void onListen(Object o, EventChannel.EventSink eventSink) {
+        // Set up the event channel
+        setupEventChannel();
 
-                sink = eventSink;
-                if (sink == null) {
-                    Log.i("empty", "Sink is empty");
-                }
-            }
-
-            @Override
-            public void onCancel(Object o) {
-
-            }
-        });
-        channel = new MethodChannel(binding.getFlutterEngine().getDartExecutor(), channelName);
+        // Set up the method channel
+        channel = new MethodChannel(binding.getBinaryMessenger(), channelName);
         channel.setMethodCallHandler(this);
     }
 
     @Override
     public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
-        // TODO: your plugin is no longer attached to a Flutter experience.
+        if (channel != null) {
+            channel.setMethodCallHandler(null);
+            channel = null;
+        }
+        if (eventChannel != null) {
+            eventChannel.setStreamHandler(null);
+            eventChannel = null;
+        }
+        messenger = null;
+        context = null;
     }
 
     @Override
@@ -103,12 +70,12 @@ public class EpubViewerPlugin implements MethodCallHandler, FlutterPlugin, Activ
 
     @Override
     public void onDetachedFromActivityForConfigChanges() {
-
+        // Keep activity reference during config changes
     }
 
     @Override
     public void onReattachedToActivityForConfigChanges(@NonNull ActivityPluginBinding activityPluginBinding) {
-
+        activity = activityPluginBinding.getActivity();
     }
 
     @Override
@@ -116,10 +83,47 @@ public class EpubViewerPlugin implements MethodCallHandler, FlutterPlugin, Activ
         activity = null;
     }
 
+    private void setupEventChannel() {
+        eventChannel = new EventChannel(messenger, "page");
+        eventChannel.setStreamHandler(new EventChannel.StreamHandler() {
+            @Override
+            public void onListen(Object o, EventChannel.EventSink eventSink) {
+                sink = eventSink;
+                if (sink == null) {
+                    Log.i("empty", "Sink is empty");
+                }
+            }
+
+            @Override
+            public void onCancel(Object o) {
+                sink = null;
+            }
+        });
+    }
+
     @Override
     public void onMethodCall(MethodCall call, Result result) {
+        switch (call.method) {
+            case "setConfig":
+                handleSetConfig(call, result);
+                break;
+            case "open":
+                handleOpen(call, result);
+                break;
+            case "close":
+                handleClose(call, result);
+                break;
+            case "setChannel":
+                handleSetChannel(call, result);
+                break;
+            default:
+                result.notImplemented();
+                break;
+        }
+    }
 
-        if (call.method.equals("setConfig")) {
+    private void handleSetConfig(MethodCall call, Result result) {
+        try {
             Map<String, Object> arguments = (Map<String, Object>) call.arguments;
             String identifier = arguments.get("identifier").toString();
             String themeColor = arguments.get("themeColor").toString();
@@ -127,11 +131,18 @@ public class EpubViewerPlugin implements MethodCallHandler, FlutterPlugin, Activ
             Boolean nightMode = Boolean.parseBoolean(arguments.get("nightMode").toString());
             Boolean allowSharing = Boolean.parseBoolean(arguments.get("allowSharing").toString());
             Boolean enableTts = Boolean.parseBoolean(arguments.get("enableTts").toString());
+
             config = new ReaderConfig(context, identifier, themeColor,
                     scrollDirection, allowSharing, enableTts, nightMode);
 
-        } else if (call.method.equals("open")) {
+            result.success(null);
+        } catch (Exception e) {
+            result.error("CONFIG_ERROR", "Failed to set config: " + e.getMessage(), null);
+        }
+    }
 
+    private void handleOpen(MethodCall call, Result result) {
+        try {
             Map<String, Object> arguments = (Map<String, Object>) call.arguments;
             String bookPath = arguments.get("bookPath").toString();
             String lastLocation = arguments.get("lastLocation").toString();
@@ -141,28 +152,34 @@ public class EpubViewerPlugin implements MethodCallHandler, FlutterPlugin, Activ
             if (sink == null) {
                 Log.i("sink status", "sink is empty");
             }
+
             reader = new Reader(context, messenger, config, sink);
             reader.open(bookPath, lastLocation);
 
-        } else if (call.method.equals("close")) {
-            reader.close();
-        } else if (call.method.equals("setChannel")) {
-            eventChannel = new EventChannel(messenger, "page");
-            eventChannel.setStreamHandler(new EventChannel.StreamHandler() {
-
-                @Override
-                public void onListen(Object o, EventChannel.EventSink eventSink) {
-
-                    sink = eventSink;
-                }
-
-                @Override
-                public void onCancel(Object o) {
-
-                }
-            });
-        } else {
-            result.notImplemented();
+            result.success(null);
+        } catch (Exception e) {
+            result.error("OPEN_ERROR", "Failed to open book: " + e.getMessage(), null);
         }
     }
+
+    private void handleClose(MethodCall call, Result result) {
+        try {
+            if (reader != null) {
+                reader.close();
+            }
+            result.success(null);
+        } catch (Exception e) {
+            result.error("CLOSE_ERROR", "Failed to close book: " + e.getMessage(), null);
+        }
+    }
+
+    private void handleSetChannel(MethodCall call, Result result) {
+        try {
+            setupEventChannel();
+            result.success(null);
+        } catch (Exception e) {
+            result.error("CHANNEL_ERROR", "Failed to set channel: " + e.getMessage(), null);
+        }
+    }
+
 }

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:vocsy_epub_viewer/epub_viewer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   runApp(MyApp());
@@ -21,12 +23,60 @@ class _MyAppState extends State<MyApp> {
   bool loading = false;
   Dio dio = Dio();
   String filePath = "";
+  String LOCATOR_KEY = 'epub_last_locator';
 
   @override
   void initState() {
     download();
+    _setupLocatorListener();
 
     super.initState();
+  }
+
+  /// Setup locator listener to save position
+  void _setupLocatorListener() {
+    VocsyEpub.locatorStream.listen((locator) {
+      print('LOCATOR: $locator');
+      _saveLocator(locator);
+    });
+  }
+
+  /// Save locator to SharedPreferences
+  Future<void> _saveLocator(String locator) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final locatorJson = locator;
+      await prefs.setString(LOCATOR_KEY, locatorJson);
+      print('Locator saved: $locatorJson');
+    } catch (e) {
+      print('Error saving locator: $e');
+    }
+  }
+
+  /// Load locator from SharedPreferences
+  Future<EpubLocator?> _loadLocator() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final locatorJson = prefs.getString(LOCATOR_KEY);
+      if (locatorJson != null) {
+        final locatorMap = jsonDecode(locatorJson);
+        return EpubLocator.fromJson(locatorMap);
+      }
+    } catch (e) {
+      print('Error loading locator: $e');
+    }
+    return null;
+  }
+
+  /// Clear saved locator
+  Future<void> _clearLocator() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove(LOCATOR_KEY);
+      print('Locator cleared');
+    } catch (e) {
+      print('Error clearing locator: $e');
+    }
   }
 
   /// ANDROID VERSION
@@ -109,6 +159,8 @@ class _MyAppState extends State<MyApp> {
                         if (filePath == "") {
                           download();
                         } else {
+                          LOCATOR_KEY = "book1";
+
                           VocsyEpub.setConfig(
                             themeColor: Theme.of(context).primaryColor,
                             identifier: "iosBook",
@@ -118,15 +170,17 @@ class _MyAppState extends State<MyApp> {
                             nightMode: true,
                           );
 
-                          VocsyEpub.open(
-                            filePath,
-                          );
+                          final savedLocator = await _loadLocator();
+
+                          VocsyEpub.open(filePath, lastLocation: savedLocator);
                         }
                       },
                       child: Text('Open Online E-pub'),
                     ),
                     ElevatedButton(
                       onPressed: () async {
+                        LOCATOR_KEY = "book2";
+
                         VocsyEpub.setConfig(
                           themeColor: Theme.of(context).primaryColor,
                           identifier: "iosBook",
@@ -135,13 +189,9 @@ class _MyAppState extends State<MyApp> {
                           enableTts: true,
                           nightMode: true,
                         );
-                        // get current locator
-                        VocsyEpub.locatorStream.listen((locator) {
-                          print('LOCATOR: $locator');
-                        });
-                        await VocsyEpub.openAsset(
-                          'assets/4.epub',
-                        );
+                        final savedLocator = await _loadLocator();
+
+                        await VocsyEpub.openAsset('assets/4.epub', lastLocation: savedLocator);
                       },
                       child: Text('Open Assets E-pub'),
                     ),
