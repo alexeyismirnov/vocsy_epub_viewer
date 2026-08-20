@@ -1,3 +1,11 @@
+## Unreleased
+
+- Android: open FolioReader books on the main thread and persist config before open
+- Android: pad theme color hex for Color.parseColor
+- Android: close leaked EPUB ZipFile when FolioActivity is destroyed
+- Android: close previous reader before opening another book
+- Dart: pad ARGB hex and reuse cached asset EPUB files
+
 ## 2.0.0
 * LATEST ANDROID VERSION SUPPORT!
 * ANDROID 13 SUPPORTED !
