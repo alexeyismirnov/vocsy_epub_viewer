@@ -12,6 +12,10 @@ import com.folioreader.model.locators.ReadLocator;
 import com.folioreader.ui.base.OnSaveHighlight;
 import com.folioreader.util.OnHighlightListener;
 import com.folioreader.util.ReadLocatorListener;
+import com.folioreader.util.AppUtil;
+
+import android.os.Handler;
+import android.os.Looper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -56,27 +60,33 @@ public class Reader implements OnHighlightListener, ReadLocatorListener, FolioRe
         new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    Log.i("SavedLocation", "-> savedLocation -> " + location);
-
-                    if (location != null && !location.isEmpty()) {
-                        // FIX 1: Use proper error handling for ReadLocator parsing
+                ReadLocator locator = null;
+                if (location != null && !location.isEmpty()) {
+                    try {
+                        locator = ReadLocator.fromJson(location);
+                    } catch (Exception e) {
+                        Log.e("Reader", "Failed to parse ReadLocator: " + e.getMessage());
+                    }
+                }
+                final ReadLocator parsedLocator = locator;
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
                         try {
-                            ReadLocator readLocator = ReadLocator.fromJson(location);
-                            folioReader.setReadLocator(readLocator);
+                            if (parsedLocator != null) {
+                                folioReader.setReadLocator(parsedLocator);
+                            }
+                            if (readerConfig != null && readerConfig.config != null) {
+                                AppUtil.Companion.saveConfig(context, readerConfig.config);
+                                folioReader.setConfig(readerConfig.config, true);
+                            }
+                            folioReader.openBook(path);
                         } catch (Exception e) {
-                            Log.e("Reader", "Failed to parse ReadLocator: " + e.getMessage());
-                            // Continue without setting read locator
+                            Log.e("Reader", "Error opening book: " + e.getMessage());
+                            e.printStackTrace();
                         }
                     }
-
-
-                    folioReader.setConfig(readerConfig.config, true)
-                            .openBook(path);
-                } catch (Exception e) {
-                    Log.e("Reader", "Error opening book: " + e.getMessage());
-                    e.printStackTrace();
-                }
+                });
             }
         }).start();
     }

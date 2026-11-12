@@ -30,10 +30,25 @@ public class ReaderConfig {
         }else{
             config.setAllowedDirection(Config.AllowedDirection.VERTICAL_AND_HORIZONTAL);
         }
-        config.setThemeColorInt(Color.parseColor(themeColor));
-        config.setNightThemeColorInt(Color.parseColor(themeColor));
+        try {
+            config.setThemeColorInt(Color.parseColor(normalizeHex(themeColor)));
+            config.setNightThemeColorInt(Color.parseColor(normalizeHex(themeColor)));
+        } catch (Exception e) {
+            Log.e("ReaderConfig", "Invalid theme color '" + themeColor + "', using default", e);
+        }
         config.setShowRemainingIndicator(true);
         config.setShowTts(showTts);
         config.setNightMode(nightMode);
+    }
+
+    private static String normalizeHex(String themeColor) {
+        if (themeColor == null || themeColor.isEmpty()) {
+            return "#FFE9C79A";
+        }
+        String hex = themeColor.startsWith("#") ? themeColor : "#" + themeColor;
+        if (hex.length() == 7) {
+            return "#FF" + hex.substring(1);
+        }
+        return hex;
     }
 }
