@@ -34,12 +34,14 @@ footer, header, hgroup, menu, nav, section {
 html {
     -webkit-text-size-adjust: none; /* Never autoresize text */
     padding: 0 0 !important;
-    overflow: hidden;
+    /* visible: vertical scrolling must work on large canvases (iPhone Duo).
+       Horizontal mode re-applies paging via WKWebView scroll settings. */
+    overflow: visible;
 }
 
 body {
     padding: 40px 20px !important;
-    overflow: hidden !important;
+    overflow: visible !important;
 }
 
 * {

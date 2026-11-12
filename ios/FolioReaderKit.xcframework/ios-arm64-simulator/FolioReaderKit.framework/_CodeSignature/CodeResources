@@ -22,7 +22,7 @@
 		</data>
 		<key>Assets.car</key>
 		<data>
-		pesNBNZnE9/ugG3AYhP30rvPEHk=
+		qM2y7EsXHfvLAv8ZWibuxQX3ctg=
 		</data>
 		<key>Bridge.js</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>Headers/FolioReaderKit-Swift.h</key>
 		<data>
-		iPq6kwt6BwcOQmQ6ul57apEThvo=
+		lC800Y1tU/hGZmrtxdfEPcvqv4k=
 		</data>
 		<key>Headers/FolioReaderKit.h</key>
 		<data>
@@ -42,7 +42,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		/fuVij/hcaIfpyl/zJ4SVuVvqIs=
+		Nm6jpwP8nBnBYw5js+395hwXxW4=
 		</data>
 		<key>Lato-Bold.ttf</key>
 		<data>
@@ -78,27 +78,27 @@
 		</data>
 		<key>Modules/FolioReaderKit.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		iFC4P7IGu76WgSMFAXsF7WAUivk=
+		9eLBplWVjhCLsral9D8w6RnbcNw=
 		</data>
 		<key>Modules/FolioReaderKit.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		MKKi9llKf+WnIQP+Gp7UNz1YR28=
+		uAsS4FLi8U2O8TCySJoqOxJQjUM=
 		</data>
 		<key>Modules/FolioReaderKit.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		qCwDoGyuUwreotDVOf3h/E+uqYA=
+		OtPV32MgV0I1BMwlgemI8z3AlXM=
 		</data>
 		<key>Modules/FolioReaderKit.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		MKKi9llKf+WnIQP+Gp7UNz1YR28=
+		uAsS4FLi8U2O8TCySJoqOxJQjUM=
 		</data>
 		<key>Modules/FolioReaderKit.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		ns6l6GDR7nx9svTVPVSShCqCYoM=
+		+xfNC1M1q7DbAv6IuHzdbQgNhdI=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		uJCXgq3tcfxXERa55J7vyhJ0Mgs=
+		84UUjQ01QcL4VV5Hza7ZrR+5kUQ=
 		</data>
 		<key>Raleway-Bold.ttf</key>
 		<data>
@@ -118,7 +118,7 @@
 		</data>
 		<key>Style.css</key>
 		<data>
-		LGbnq63G5IALLK2x0AFFrLqR3Co=
+		dAqeCXz01oNz4kDI5DRbzZD0HtU=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -155,7 +155,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			vpyERlnxgfgu0O6w9ADT5OYfQhDLsn0RomiexRgV88s=
+			b0ZTVZvOlLYWaIMhgXfFA3ch2n8Nm9pCG23t8ZuBtSQ=
 			</data>
 		</dict>
 		<key>Bridge.js</key>
@@ -176,7 +176,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			FioJlQAQeJMKTQuoU5+iATJyaCZoU4Xo8wjmZPI9DxI=
+			0TMF9BKeBwOwOlGWfRdDRF7ORJp0MbQ6rDuQsJiJAC4=
 			</data>
 		</dict>
 		<key>Headers/FolioReaderKit.h</key>
@@ -246,42 +246,42 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			8WnfIi6Fd1VSBmbgyfEK5AP3qy5MI7C+bdFUplH6rLY=
+			cZtU0lE3NFFLUyJePymzajzItbLorctiuVJRn9GKKPc=
 			</data>
 		</dict>
 		<key>Modules/FolioReaderKit.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			gDb2bBdoGrlEpR5LRYlx0Z4bznTCexhygRC7nLnM9Ug=
+			/Sz62yYKY5nbl8CDUQnX53E7Y2TKtsChHl0CJpxgUV8=
 			</data>
 		</dict>
 		<key>Modules/FolioReaderKit.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			/DFUBDEy72uXGTaIAel40XsirwARTiVzlw82clhN5/k=
+			8GjbNEGGTrYK6ZTUwGkKXXB70BlaUE/MVLXKAXtkF8I=
 			</data>
 		</dict>
 		<key>Modules/FolioReaderKit.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			gDb2bBdoGrlEpR5LRYlx0Z4bznTCexhygRC7nLnM9Ug=
+			/Sz62yYKY5nbl8CDUQnX53E7Y2TKtsChHl0CJpxgUV8=
 			</data>
 		</dict>
 		<key>Modules/FolioReaderKit.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			dxcOpOzoYoHaBKrHm6kWp8oyTcU1H+edWEwf3sllT4s=
+			BddjD+r7qT4ub6X95pGgjvfZ9L7u4uyfoYg2Ua/ELFg=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			9uO0o1IN/O8wpjtEj7Z6gAlj/5fHRfZThwORl/6eb/U=
+			q4y4w5GGJIukZGFvI0v2ak+sNkm6kigAYtgOY4Rezho=
 			</data>
 		</dict>
 		<key>Raleway-Bold.ttf</key>
@@ -316,7 +316,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			yoLHs5YDLB0bm/CyXCoA2DO1bBAykTESan56uF4lCUc=
+			bSeXBslNUOEQ5ee3n1xiRRSbOwDcKvucbKf4rLOZqm0=
 			</data>
 		</dict>
 	</dict>

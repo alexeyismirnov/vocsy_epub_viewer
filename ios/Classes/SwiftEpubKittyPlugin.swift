@@ -75,9 +75,25 @@ public class SwiftEpubViewerPlugin: NSObject, FlutterPlugin,FolioReaderPageDeleg
               return
           }
 
-          let readerVc = UIApplication.shared.keyWindow!.rootViewController ?? UIViewController()
+          let readerVc = Self.topViewController()
           folioReader.presentReader(parentViewController: readerVc, withEpubPath: epubPath, andConfig: self.config!.config, shouldRemoveEpub: false)
           folioReader.readerCenter?.pageDelegate = self
+      }
+
+      /// Prefer the foreground window scene — keyWindow is unreliable on multi-display (iPhone Duo).
+      fileprivate static func topViewController() -> UIViewController {
+          let scenes = UIApplication.shared.connectedScenes
+              .compactMap { $0 as? UIWindowScene }
+              .filter { $0.activationState == .foregroundActive || $0.activationState == .foregroundInactive }
+          let window = scenes
+              .flatMap { $0.windows }
+              .first { $0.isKeyWindow }
+              ?? scenes.first?.windows.first
+          var controller = window?.rootViewController
+          while let presented = controller?.presentedViewController {
+              controller = presented
+          }
+          return controller ?? UIViewController()
       }
 
       public func pageWillLoad(_ page: FolioReaderPage) {

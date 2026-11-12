@@ -7,5 +7,4 @@ framework module FolioReaderKit {
 
 module FolioReaderKit.Swift {
   header "FolioReaderKit-Swift.h"
-  requires objc
 }
