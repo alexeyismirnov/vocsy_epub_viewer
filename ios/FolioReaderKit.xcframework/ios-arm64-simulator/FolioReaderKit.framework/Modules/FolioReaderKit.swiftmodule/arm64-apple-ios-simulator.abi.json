@@ -15377,6 +15377,57 @@
           },
           {
             "kind": "Function",
+            "name": "scrollViewWillEndDragging",
+            "printedName": "scrollViewWillEndDragging(_:withVelocity:targetContentOffset:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIScrollView",
+                "printedName": "UIKit.UIScrollView",
+                "usr": "c:objc(cs)UIScrollView"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CGPoint",
+                "printedName": "CoreFoundation.CGPoint",
+                "usr": "c:@S@CGPoint"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UnsafeMutablePointer",
+                "printedName": "Swift.UnsafeMutablePointer<CoreFoundation.CGPoint>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CGPoint",
+                    "printedName": "CoreFoundation.CGPoint",
+                    "usr": "c:@S@CGPoint"
+                  }
+                ],
+                "usr": "s:Sp"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@FolioReaderKit@objc(cs)FolioReaderCenter(im)scrollViewWillEndDragging:withVelocity:targetContentOffset:",
+            "mangledName": "$s14FolioReaderKit0aB6CenterC25scrollViewWillEndDragging_12withVelocity19targetContentOffsetySo08UIScrollF0C_So7CGPointVSpyAJGtF",
+            "moduleName": "FolioReaderKit",
+            "isOpen": true,
+            "objc_name": "scrollViewWillEndDragging:withVelocity:targetContentOffset:",
+            "declAttributes": [
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
             "name": "scrollViewDidEndScrollingAnimation",
             "printedName": "scrollViewDidEndScrollingAnimation(_:)",
             "children": [
@@ -25861,147 +25912,147 @@
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 6173,
+      "offset": 6203,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 6235,
+      "offset": 6265,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 6416,
+      "offset": 6446,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 6471,
+      "offset": 6501,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 6831,
+      "offset": 6861,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "IntegerLiteral",
-      "offset": 6934,
+      "offset": 6964,
       "length": 1,
       "value": "2"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "IntegerLiteral",
-      "offset": 6965,
+      "offset": 6995,
       "length": 1,
       "value": "2"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "IntegerLiteral",
-      "offset": 6975,
+      "offset": 7005,
       "length": 2,
       "value": "30"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "IntegerLiteral",
-      "offset": 6987,
+      "offset": 7017,
       "length": 2,
       "value": "30"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 7257,
+      "offset": 7287,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 7507,
+      "offset": 7537,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 7556,
+      "offset": 7586,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 7670,
+      "offset": 7700,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 18799,
+      "offset": 21568,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 37988,
+      "offset": 41742,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 38605,
+      "offset": 42359,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 39735,
+      "offset": 43489,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 40375,
+      "offset": 44129,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 44542,
+      "offset": 48296,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 45500,
+      "offset": 49254,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 49931,
+      "offset": 53685,
       "length": 5,
       "value": "false"
     },
@@ -26351,28 +26402,28 @@
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/Extensions.swift",
       "kind": "BooleanLiteral",
-      "offset": 15605,
+      "offset": 15589,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/Extensions.swift",
       "kind": "IntegerLiteral",
-      "offset": 15749,
+      "offset": 15733,
       "length": 2,
       "value": "17"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/Extensions.swift",
       "kind": "BooleanLiteral",
-      "offset": 17367,
+      "offset": 17351,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/Extensions.swift",
       "kind": "BooleanLiteral",
-      "offset": 17733,
+      "offset": 17717,
       "length": 5,
       "value": "false"
     },

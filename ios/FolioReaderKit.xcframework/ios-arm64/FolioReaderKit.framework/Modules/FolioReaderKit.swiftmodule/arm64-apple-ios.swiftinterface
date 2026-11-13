@@ -375,6 +375,7 @@ extension FolioReaderKit::FolioReader {
   @_Concurrency::MainActor @preconcurrency @objc open func scrollViewDidScroll(_ scrollView: UIKit::UIScrollView)
   @_Concurrency::MainActor @preconcurrency @objc open func scrollViewDidEndDecelerating(_ scrollView: UIKit::UIScrollView)
   @_Concurrency::MainActor @preconcurrency @objc open func scrollViewDidEndDragging(_ scrollView: UIKit::UIScrollView, willDecelerate decelerate: Swift::Bool)
+  @_Concurrency::MainActor @preconcurrency @objc open func scrollViewWillEndDragging(_ scrollView: UIKit::UIScrollView, withVelocity velocity: CoreFoundation::CGPoint, targetContentOffset: Swift::UnsafeMutablePointer<CoreFoundation::CGPoint>)
   @_Concurrency::MainActor @preconcurrency @objc open func scrollViewDidEndScrollingAnimation(_ scrollView: UIKit::UIScrollView)
   @_Concurrency::MainActor @preconcurrency @objc override dynamic open func willRotate(to toInterfaceOrientation: UIKit::UIInterfaceOrientation, duration: Foundation::TimeInterval)
   @_Concurrency::MainActor @preconcurrency @objc override dynamic open func didRotate(from fromInterfaceOrientation: UIKit::UIInterfaceOrientation)

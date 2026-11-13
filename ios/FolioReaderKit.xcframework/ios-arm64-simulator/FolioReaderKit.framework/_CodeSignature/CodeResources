@@ -34,7 +34,7 @@
 		</data>
 		<key>Headers/FolioReaderKit-Swift.h</key>
 		<data>
-		lC800Y1tU/hGZmrtxdfEPcvqv4k=
+		RAeNYdiK54uv4MPgcV/xB/+tE6g=
 		</data>
 		<key>Headers/FolioReaderKit.h</key>
 		<data>
@@ -78,11 +78,11 @@
 		</data>
 		<key>Modules/FolioReaderKit.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		9eLBplWVjhCLsral9D8w6RnbcNw=
+		DVWcWyAzTHv3GbxpP7QO04zmMuQ=
 		</data>
 		<key>Modules/FolioReaderKit.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		uAsS4FLi8U2O8TCySJoqOxJQjUM=
+		EwBM0tSvOE9tAhE5GikV4Qqu9fA=
 		</data>
 		<key>Modules/FolioReaderKit.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -90,11 +90,11 @@
 		</data>
 		<key>Modules/FolioReaderKit.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		uAsS4FLi8U2O8TCySJoqOxJQjUM=
+		EwBM0tSvOE9tAhE5GikV4Qqu9fA=
 		</data>
 		<key>Modules/FolioReaderKit.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		+xfNC1M1q7DbAv6IuHzdbQgNhdI=
+		sBVuizuFAlQW0jfnTd0XcNk7Hw8=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -176,7 +176,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			0TMF9BKeBwOwOlGWfRdDRF7ORJp0MbQ6rDuQsJiJAC4=
+			YMFi1C2GEQFPyoekxrJzYw868gKo35yoLnsjH7B5Q4I=
 			</data>
 		</dict>
 		<key>Headers/FolioReaderKit.h</key>
@@ -246,14 +246,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			cZtU0lE3NFFLUyJePymzajzItbLorctiuVJRn9GKKPc=
+			0dhtqr3/Yc12Tn4tDIdZhvZnIZQYvL3pScqCMlU+pXw=
 			</data>
 		</dict>
 		<key>Modules/FolioReaderKit.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			/Sz62yYKY5nbl8CDUQnX53E7Y2TKtsChHl0CJpxgUV8=
+			2e+kqCkQ6UPvP1hWm54flykE2sbLLQ8oozEL6sNWDcw=
 			</data>
 		</dict>
 		<key>Modules/FolioReaderKit.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
@@ -267,14 +267,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			/Sz62yYKY5nbl8CDUQnX53E7Y2TKtsChHl0CJpxgUV8=
+			2e+kqCkQ6UPvP1hWm54flykE2sbLLQ8oozEL6sNWDcw=
 			</data>
 		</dict>
 		<key>Modules/FolioReaderKit.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			BddjD+r7qT4ub6X95pGgjvfZ9L7u4uyfoYg2Ua/ELFg=
+			QqxYfVdW9huh6jBllHQzArgQs/lZPP1W08GLau6TCJk=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
