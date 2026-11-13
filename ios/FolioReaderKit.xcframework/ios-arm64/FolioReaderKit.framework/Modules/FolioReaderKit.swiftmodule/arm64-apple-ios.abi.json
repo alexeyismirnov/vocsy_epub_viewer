@@ -14996,6 +14996,34 @@
           },
           {
             "kind": "Function",
+            "name": "viewSafeAreaInsetsDidChange",
+            "printedName": "viewSafeAreaInsetsDidChange()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@FolioReaderKit@objc(cs)FolioReaderCenter(im)viewSafeAreaInsetsDidChange",
+            "mangledName": "$s14FolioReaderKit0aB6CenterC27viewSafeAreaInsetsDidChangeyyF",
+            "moduleName": "FolioReaderKit",
+            "overriding": true,
+            "isOpen": true,
+            "objc_name": "viewSafeAreaInsetsDidChange",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl",
+              "Override"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
             "name": "viewDidLayoutSubviews",
             "printedName": "viewDidLayoutSubviews()",
             "children": [
@@ -26003,56 +26031,56 @@
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 21568,
+      "offset": 21953,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 41742,
+      "offset": 42127,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 42359,
+      "offset": 42744,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 43489,
+      "offset": 43874,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 44129,
+      "offset": 44514,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 48296,
+      "offset": 48681,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 49254,
+      "offset": 49639,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/alexey\/workspace\/tmp\/FolioReaderKit\/Source\/FolioReaderCenter.swift",
       "kind": "BooleanLiteral",
-      "offset": 53685,
+      "offset": 54070,
       "length": 5,
       "value": "false"
     },
