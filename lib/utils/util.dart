@@ -3,8 +3,16 @@ part of 'package:vocsy_epub_viewer/epub_viewer.dart';
 class Util {
   /// Get HEX code from [Colors], [MaterialColor],
   /// [Color] and [MaterialAccentColor]
+  /// Returns `#RRGGBB` (iOS FolioReader parses 8-digit hex as RRGGBBAA,
+  /// so emitting Flutter's AARRGGBB washes out / transparentizes the tint).
   static String getHexFromColor(Color color) {
-    return '#${color.toARGB32().toRadixString(16).padLeft(8, '0')}';
+    final argb = color.toARGB32();
+    final r = (argb >> 16) & 0xFF;
+    final g = (argb >> 8) & 0xFF;
+    final b = argb & 0xFF;
+    return '#${r.toRadixString(16).padLeft(2, '0')}'
+        '${g.toRadixString(16).padLeft(2, '0')}'
+        '${b.toRadixString(16).padLeft(2, '0')}';
   }
 
   /// Convert [EpubScrollDirection] to FolioReader reader String
